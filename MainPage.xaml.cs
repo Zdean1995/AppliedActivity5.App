@@ -1,17 +1,23 @@
-﻿namespace AppliedActivity5;
+﻿using AppliedActivity5.Models;
+
+namespace AppliedActivity5;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
 
 	public MainPage()
 	{
 		InitializeComponent();
 	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
+	private async void GetData(object sender, EventArgs args)
 	{
+		List<Student> student = await App.SchoolRepo.GetAllStudents();
+		studentList.ItemsSource = student;
 
+
+        List<Course> courses = await App.SchoolRepo.GetAllCourses();
+		CourseList.ItemsSource = courses;
 	}
 }
 

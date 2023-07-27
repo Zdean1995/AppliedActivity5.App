@@ -10,7 +10,7 @@ namespace AppliedActivity5.Models
         [MaxLength(250)]
         public string Name { get; set; }
         [MaxLength(250)]
-        public string Address { get; set; }
+        public string Email { get; set; }
         public int PhoneNumber { get; set; }
 
         [ManyToMany(typeof(StudentCourse))]

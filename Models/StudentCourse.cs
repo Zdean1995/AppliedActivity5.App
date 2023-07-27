@@ -13,6 +13,5 @@ namespace AppliedActivity5.Models
         public int StudentId { get; set; }
         [ForeignKey(typeof(Course))]
         public int CourseId { get; set; }
-        public decimal Mark { get; set; }
     }
 }
