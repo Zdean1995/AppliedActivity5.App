@@ -2,17 +2,28 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppliedActivity5.StudentPage"
-             Title="StudentPage">
-    <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,*,*" ColumnSpacing="5">
-        <TableView Intent="Data" Grid.Row="0" Grid.ColumnSpan="3">
-            <TableRoot>
-                <TableSection Title="Student">
-                    <EntryCell Label="Name" />
-                    <EntryCell Label="Email"/>
-                    <EntryCell Label="Phone Number" Keyboard="Numeric"/>
-                </TableSection>
-            </TableRoot>
-        </TableView>
-        <Picker x:Name="coursePicker" />
-    </Grid>
+             Title="StudentPage"
+             xmlns:viewmodel="clr-namespace:AppliedActivity5.ViewModels"
+             x:DataType="viewmodel:StudentPageViewModel">
+    <VerticalStackLayout>
+        <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,*,*" ColumnSpacing="5">
+            <TableView Intent="Data" Grid.Row="0" Grid.ColumnSpan="3">
+                <TableRoot>
+                    <TableSection Title="Student">
+                        <EntryCell Label="Name" Text="{Binding Student.Name}"/>
+                        <EntryCell Label="Email" Text="{Binding Student.Email}"/>
+                        <EntryCell Label="Phone Number" Keyboard="Numeric" Text="{Binding Student.PhoneNumber}"/>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Picker x:Name="coursePicker"
+                    IsVisible="{Binding IsLoading}"
+                    ItemsSource="{Binding Courses}"
+                    SelectedItem="{Binding SelectedCourse}"/>
+        </Grid>
+        <Button Text="Add Student"
+                    IsVisible="{Binding NotEdit}"/>
+        <Button Text="Save Student"
+                    IsVisible="{Binding Edit}"/>
+    </VerticalStackLayout>
 </ContentPage>

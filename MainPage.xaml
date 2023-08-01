@@ -20,50 +20,90 @@
 
             <Label
                 Text="No Courses"
-                IsVisible="{Binding StudentsEmpty}"
+                IsVisible="{Binding CourseEmpty}"
                 />
+            <Button
+                Text="Add Course" 
+                Command="{Binding AddCourseCommand}"/>
             <ScrollView>
-                <CollectionView x:Name="CourseList" ItemsSource="{Binding Courses}">
+                <CollectionView ItemsSource="{Binding Courses}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="{x:Type model:Course}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding Name}" />
-                                <Label Grid.Column="1" Text="{Binding CourseCode}" />
-                                <Label Grid.Column="2" Text="{Binding Professor}" />
-                            </Grid>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=DeleteCourseCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                    <Frame>
+                                        <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=EditCourseCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{Binding Name}" />
+                                        <Label Grid.Column="1" Text="{Binding CourseCode}" />
+                                        <Label Grid.Column="2" Text="{Binding Professor}" />
+                                    </Grid>
+                                    </Frame>
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </ScrollView>
+
             <Label
                 Text="No Students"
-                IsVisible="{Binding CourseEmpty}"
+                IsVisible="{Binding StudentsEmpty}"
                 />
+            <Button
+                Text="Add Student" 
+                Command="{Binding AddStudentCommand}"/>
+            <ScrollView>
+                <CollectionView ItemsSource="{Binding Students}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type model:Student}">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=DeleteStudentCommand}"
+                                               CommandParameter="{Binding .}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Frame>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainPageViewModel}}, Path=EditStudentCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{Binding Name}" />
+                                        <Label Grid.Column="1" Text="{Binding Email}" />
+                                        <Label Grid.Column="2" Text="{Binding PhoneNumber}" />
+                                    </Grid>
+                                </Frame>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
 
-                <ScrollView>
-            <CollectionView x:Name="studentList" ItemsSource="{Binding Students}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type model:Student}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="{Binding Name}" />
-                            <Label Grid.Column="1" Text="{Binding Email}" />
-                            <Label Grid.Column="2" Text="{Binding PhoneNumber}" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-                </ScrollView>
-             
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

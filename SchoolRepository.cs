@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AppliedActivity5.Models;
+using System.Net.Http.Json;
 
 namespace AppliedActivity5
 {
@@ -78,6 +79,33 @@ namespace AppliedActivity5
             }
 
             return new List<Course>();
+        }
+
+        public async Task DeleteStudent(Student student)
+        {
+            int result = 0;
+            try
+            {
+                await Init();
+                result = await conn.DeleteAsync(student);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to delete {0}. Error: {1}", student.Name, ex.Message);
+            }
+        }
+        public async Task DeleteCourse(Course course)
+        {
+            int result = 0;
+            try
+            {
+                await Init();
+                result = await conn.DeleteAsync(course);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to delete {0}. Error: {1}", course.Name, ex.Message);
+            }
         }
     }
 }
