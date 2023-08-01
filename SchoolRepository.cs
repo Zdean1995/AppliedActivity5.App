@@ -9,12 +9,12 @@ using System.Net.Http.Json;
 
 namespace AppliedActivity5
 {
+    //this class is the connection between the SQLite database and the app
     public class SchoolRepository
     {
         string _dbPath;
 
         public string StatusMessage { get; set; }
-
         private SQLiteAsyncConnection conn;
 
         private async Task Init()
@@ -25,7 +25,6 @@ namespace AppliedActivity5
             conn = new SQLiteAsyncConnection(_dbPath);
             await conn.CreateTableAsync<Student>();
             await conn.CreateTableAsync<Course>();
-            await conn.CreateTableAsync<StudentCourse>();
 
         }
 
@@ -66,6 +65,32 @@ namespace AppliedActivity5
             return new List<Student>();
         }
 
+        public async Task UpdateStudent(Student student)
+        {
+            try
+            {
+                await Init();
+                await conn.UpdateAsync(student);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to update {0}. Error: {1}", student.Name, ex.Message);
+            }
+        }
+
+        public async Task DeleteStudent(Student student)
+        {
+            try
+            {
+                await Init();
+                await conn.DeleteAsync(student);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to delete {0}. Error: {1}", student.Name, ex.Message);
+            }
+        }
+
         public async Task<List<Course>> GetAllCourses()
         {
             try
@@ -80,19 +105,33 @@ namespace AppliedActivity5
 
             return new List<Course>();
         }
-
-        public async Task DeleteStudent(Student student)
+        public async Task UpdateCourse(Course course)
+        {
+            try
+            {
+                await Init();
+                await conn.UpdateAsync(course);
+            }
+            catch (Exception ex)
+            {
+                StatusMessage = string.Format("Failed to update {0}. Error: {1}", course.Name, ex.Message);
+            }
+        }
+        public async Task AddNewCourse(Course course)
         {
             int result = 0;
             try
             {
                 await Init();
-                result = await conn.DeleteAsync(student);
+                result = await conn.InsertAsync(course);
+
+                StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, course.Name);
             }
             catch (Exception ex)
             {
-                StatusMessage = string.Format("Failed to delete {0}. Error: {1}", student.Name, ex.Message);
+                StatusMessage = string.Format("Failed to add {0}. Error: {1}", course.Name, ex.Message);
             }
+
         }
         public async Task DeleteCourse(Course course)
         {

@@ -16,14 +16,17 @@
                     </TableSection>
                 </TableRoot>
             </TableView>
-            <Picker x:Name="coursePicker"
-                    IsVisible="{Binding IsLoading}"
-                    ItemsSource="{Binding Courses}"
-                    SelectedItem="{Binding SelectedCourse}"/>
         </Grid>
+            <Picker x:Name="coursePicker"
+                    Title="Select a Course"
+                    ItemsSource="{Binding Courses}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedCourse}"/>
         <Button Text="Add Student"
-                    IsVisible="{Binding NotEdit}"/>
+                    IsVisible="{Binding NotEdit}"
+                Command="{Binding AddStudentCommand}"/>
         <Button Text="Save Student"
-                    IsVisible="{Binding Edit}"/>
+                    IsVisible="{Binding Edit}"
+                Command="{Binding SaveStudentCommand}"/>
     </VerticalStackLayout>
 </ContentPage>

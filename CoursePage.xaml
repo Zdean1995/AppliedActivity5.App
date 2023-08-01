@@ -18,8 +18,10 @@
             </TableView>
         </Grid>
         <Button Text="Add Course"
-                    IsVisible="{Binding NotEdit}"/>
+                Command="{Binding AddCourseCommand}"
+                IsVisible="{Binding NotEdit}"/>
         <Button Text="Save Course"
-                    IsVisible="{Binding Edit}"/>
+                Command="{Binding SaveCourseCommand}"
+                IsVisible="{Binding Edit}"/>
     </VerticalStackLayout>
 </ContentPage>
