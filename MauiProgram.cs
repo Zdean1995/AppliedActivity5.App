@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using AppliedActivity5.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Storage;
 
@@ -20,6 +21,8 @@ public static class MauiProgram
         string dbPath = System.IO.Path.Combine(FileSystem.AppDataDirectory, "school.db");
         builder.Services.AddSingleton<SchoolRepository>(s => ActivatorUtilities.CreateInstance<SchoolRepository>(s, dbPath));
 
+		builder.Services.AddSingleton<MainPage>();
+		builder.Services.AddSingleton<MainPageViewModel>();
 
 
 

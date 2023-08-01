@@ -12,8 +12,7 @@ namespace AppliedActivity5.Models
         [MaxLength(250)]
         public string Email { get; set; }
         public int PhoneNumber { get; set; }
-
-        [ManyToMany(typeof(StudentCourse))]
-        public List<Course> Courses { get; set; }
+        [ForeignKey(typeof(Course))]
+        public int ClassId { get; set; }
     }
 }

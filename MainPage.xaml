@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppliedActivity5.MainPage">
+             x:Class="AppliedActivity5.MainPage"
+             xmlns:viewmodel="clr-namespace:AppliedActivity5.ViewModels"
+             x:DataType="viewmodel:MainPageViewModel"
+             xmlns:model="clr-namespace:AppliedActivity5.Models">
 
     <ScrollView>
         <VerticalStackLayout
@@ -10,13 +13,42 @@
             VerticalOptions="Center">
 
 
-            <Button Text="Show Data"
-                    x:Name="dataBtn"
-                    Clicked="GetData"/>
-            
-            <CollectionView x:Name="studentList">
+            <Label
+                Text="Loading Data..."
+                IsVisible="{Binding IsLoading}"
+                />
+
+            <Label
+                Text="No Courses"
+                IsVisible="{Binding StudentsEmpty}"
+                />
+            <ScrollView>
+                <CollectionView x:Name="CourseList" ItemsSource="{Binding Courses}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type model:Course}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding Name}" />
+                                <Label Grid.Column="1" Text="{Binding CourseCode}" />
+                                <Label Grid.Column="2" Text="{Binding Professor}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+            <Label
+                Text="No Students"
+                IsVisible="{Binding CourseEmpty}"
+                />
+
+                <ScrollView>
+            <CollectionView x:Name="studentList" ItemsSource="{Binding Students}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="{x:Type model:Student}">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -30,24 +62,8 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <CollectionView x:Name="CourseList">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="{Binding Name}" />
-                            <Label Grid.Column="1" Text="{Binding CourseCode}" />
-                            <Label Grid.Column="2" Text="{Binding Professor}" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
+                </ScrollView>
+             
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

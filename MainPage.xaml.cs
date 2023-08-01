@@ -1,23 +1,23 @@
 ﻿using AppliedActivity5.Models;
+using AppliedActivity5.ViewModels;
 
 namespace AppliedActivity5;
 
 public partial class MainPage : ContentPage
 {
 
-	public MainPage()
+    private MainPageViewModel _viewModel;
+	public MainPage(MainPageViewModel vm)
 	{
 		InitializeComponent();
+        BindingContext = vm;
+        _viewModel = vm;
 	}
 
-	private async void GetData(object sender, EventArgs args)
-	{
-		List<Student> student = await App.SchoolRepo.GetAllStudents();
-		studentList.ItemsSource = student;
-
-
-        List<Course> courses = await App.SchoolRepo.GetAllCourses();
-		CourseList.ItemsSource = courses;
-	}
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        _viewModel.LoadData();
+    }
 }
 

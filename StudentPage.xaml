@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppliedActivity5.StudentPage"
+             Title="StudentPage">
+    <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,*,*" ColumnSpacing="5">
+        <TableView Intent="Data" Grid.Row="0" Grid.ColumnSpan="3">
+            <TableRoot>
+                <TableSection Title="Student">
+                    <EntryCell Label="Name" />
+                    <EntryCell Label="Email"/>
+                    <EntryCell Label="Phone Number" Keyboard="Numeric"/>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+        <Picker x:Name="coursePicker" />
+    </Grid>
+</ContentPage>

@@ -26,34 +26,6 @@ namespace AppliedActivity5
             await conn.CreateTableAsync<Course>();
             await conn.CreateTableAsync<StudentCourse>();
 
-            await conn.DeleteAllAsync<Student>();
-            await conn.DeleteAllAsync<Course>();
-            await conn.DeleteAllAsync<StudentCourse>();
-
-            await conn.InsertAsync(new Student { Name = "Anish Acharya", Email= "aachary3@mycambrian.ca", PhoneNumber=1234567890});
-            await conn.InsertAsync(new Student { Name = "Bikash Chhantyal", Email = "bchhanty@mycambrian.ca", PhoneNumber = 1234567890 });
-            await conn.InsertAsync(new Student { Name = "Zachary Dean", Email = "zdean@mycambrian.ca", PhoneNumber = 1234567890 });
-            await conn.InsertAsync(new Student { Name = "Vijaybhai Virambhai Desai", Email = "vdesai5@mycambrian.ca", PhoneNumber = 1234567890 });
-            await conn.InsertAsync(new Student { Name = "Deepshika Ghale", Email = "dghale@mycambrian.ca", PhoneNumber = 1234567890 });
-
-            await conn.InsertAsync(new Course { Name = "Software Project Management", CourseCode = "PRM-1111", Professor = "Saifur Rahman" });
-            await conn.InsertAsync(new Course { Name = "Advanced Android Development", CourseCode = "ISP-1004 ", Professor = "Manisha Goud Ranga" });
-            await conn.InsertAsync(new Course { Name = "Cloud Computing Fundamentals", CourseCode = "ISP-1003", Professor = "Jeffrey Maitland" });
-            await conn.InsertAsync(new Course { Name = "Advanced Web Development", CourseCode = "CMP-1005", Professor = "Brent Ritchie" });
-            await conn.InsertAsync(new Course { Name = "Advanced iOS Development", CourseCode = "CMP-1000", Professor = "Joshua Van Der Most" });
-            
-            List<Student> students = await GetAllStudents();
-            List<Course> courses = await GetAllCourses();
-
-            foreach (Student student in students)
-            {
-                foreach (Course course in courses)
-                {
-                    student.Courses.Add(course);
-                }
-                await conn.UpdateAsync(student);
-            }
-            
         }
 
         public SchoolRepository(string dbPath)
@@ -93,23 +65,6 @@ namespace AppliedActivity5
             return new List<Student>();
         }
 
-        public async Task AddNewCourse(Course course)
-        {
-            int result = 0;
-            try
-            {
-                await Init();
-                result = await conn.InsertAsync(course);
-
-                StatusMessage = string.Format("{0} record(s) added (Name: {1})", result, course.Name);
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = string.Format("Failed to add {0}. Error: {1}", course.Name, ex.Message);
-            }
-
-        }
-
         public async Task<List<Course>> GetAllCourses()
         {
             try
@@ -123,20 +78,6 @@ namespace AppliedActivity5
             }
 
             return new List<Course>();
-        }
-
-        public async Task AssignStudentToCourse(Student student, Course course)
-        {
-            try
-            {
-                await Init();
-                student.Courses.Add(course);
-                await conn.UpdateAsync(student);
-            }
-            catch (Exception ex)
-            {
-                StatusMessage = string.Format("Failed to add {0} to {1}. Error: {2}", student.Name, course.Name, ex.Message);
-            }
         }
     }
 }

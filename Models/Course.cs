@@ -19,8 +19,5 @@ namespace AppliedActivity5.Models
         public string CourseCode { get; set; }
         [MaxLength(250)]
         public string Professor { get; set; }
-
-        [ManyToMany(typeof(Student))]
-        public List<Student> Students { get; set; }
     }
 }
