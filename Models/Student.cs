@@ -13,6 +13,6 @@ namespace AppliedActivity5.Models
         public string Email { get; set; }
         public int PhoneNumber { get; set; }
         [ForeignKey(typeof(Course))]
-        public int ClassId { get; set; }
+        public int CourseId { get; set; }
     }
 }

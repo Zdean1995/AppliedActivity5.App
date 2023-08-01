@@ -16,5 +16,9 @@ public partial class StudentPage : ContentPage
     {
         base.OnAppearing();
         _viewModel.LoadData();
+		if(_viewModel.CourseEmpty)
+		{
+			coursePicker.Title = "No courses found";
+		}
     }
 }
